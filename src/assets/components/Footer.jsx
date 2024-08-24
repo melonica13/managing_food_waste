@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-section">
           <h3>Foodify</h3>
-          <p>Reducing food waste, one meal at a time.</p>
+          <p>managing food waste, one meal at a time.</p>
         </div>
         <div className="footer-section">
           <h4>Quick Links</h4>
