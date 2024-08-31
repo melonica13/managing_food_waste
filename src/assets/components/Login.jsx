@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { LeafyGreen } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempted with:', email, password);
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      localStorage.setItem('token', response.data.token);
+      navigate('/profile');
+    } catch (error) {
+      setError(error.response?.data?.message || 'An error occurred');
+    }
   };
 
   return (
@@ -19,6 +28,7 @@ const Login = () => {
           <h1>Welcome to foodify</h1>
         </div>
         <form onSubmit={handleSubmit}>
+          {error && <div className="error-message">{error}</div>}
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input 

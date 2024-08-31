@@ -8,7 +8,6 @@ const HeroSection = () => {
         Bite by Bite</h1>
         <p className="hero-subtitle">Delicious meals from rescued ingredients, delivered <br/>
           at unbeatable prices</p>
-        <button className="cta-button">Order Now</button>
       </div>
     </main>
   );

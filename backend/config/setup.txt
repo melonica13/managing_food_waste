@@ -1,0 +1,5 @@
+login your sql credentials to .env
+then create the database and the table in your sql cli
+use schema.sql for that
+add this to backend terminal : npm install mysql2
+npm start

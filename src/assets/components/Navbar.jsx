@@ -1,13 +1,13 @@
-import React from 'react';
-import { LeafyGreen } from 'lucide-react';
-import Profile from './Profile';
-import TodaysMenu from './Menu';
+import React from "react";
+import { LeafyGreen } from "lucide-react";
+import Profile from "./Profile";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const scrollToSection = (sectionId) => (e) => {
     e.preventDefault();
     const section = document.getElementById(sectionId);
-    section.scrollIntoView({ behavior: 'smooth' });
+    section.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -18,11 +18,29 @@ const Navbar = () => {
           <span className="logo-text">foodify</span>
         </div>
         <div className="navbar-menu">
-          <TodaysMenu/>
-          <a href="#vision" className="menu-item" onClick={scrollToSection('vision')}>Our Vision</a>
-          <a href="#get-involved" className="menu-item" onClick={scrollToSection('get-involved')}>Get Involved</a>
-          <a href="#contact" className="menu-item">Contact</a>
-          <Profile />
+          <Link to="/todays-menu" className="menu-item">
+            Today's Menu
+          </Link>
+          <a
+            href="#vision"
+            className="menu-item"
+            onClick={scrollToSection("vision")}
+          >
+            Our Vision
+          </a>
+          <a
+            href="#get-involved"
+            className="menu-item"
+            onClick={scrollToSection("get-involved")}
+          >
+            Get Involved
+          </a>
+          <a href="#contact" className="menu-item">
+            Contact
+          </a>
+          <Link to="/profile" className="menu-item">
+            <Profile />
+          </Link>
         </div>
       </div>
     </nav>

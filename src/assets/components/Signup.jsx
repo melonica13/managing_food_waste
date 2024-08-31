@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import { LeafyGreen } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //logic
-    console.log('Signup attempted with:', name, email, password);
+    if (password !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
+    try {
+      await axios.post('http://localhost:5000/api/auth/signup', { name, email, password });
+      navigate('/login');
+    } catch (error) {
+      setError(error.response?.data?.message || 'An error occurred');
+    }
   };
 
   return (
@@ -22,6 +33,7 @@ const Signup = () => {
           <h1>Join foodify</h1>
         </div>
         <form onSubmit={handleSubmit}>
+          {error && <div className="error-message">{error}</div>}
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
             <input 
@@ -65,8 +77,8 @@ const Signup = () => {
               placeholder="Confirm your password" 
               required 
             />
-          </div>
           <button type="submit" className="signup-button">Sign Up</button>
+          </div>
         </form>
         <div className="signup-footer">
           <p>Already have an account? <Link to="/login">Log in</Link></p>
